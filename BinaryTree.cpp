@@ -10,6 +10,7 @@ BinaryTree::~BinaryTree() {
     }
 }
 
+// вставка элемента в дерево
 Element *newElement(Element *element, std::vector<int> *vec, long numberInVector) {
     if (vec->size() == numberInVector + 1) {
         // нужный нам элемент на следующем уровне
@@ -37,6 +38,7 @@ Element *newElement(Element *element, std::vector<int> *vec, long numberInVector
     return newElement(element2, vec, numberInVector + 1);
 }
 
+// вставка элемента в дерево
 void BinaryTree::put(int value, std::vector<int> *vec) {
     if (vec->empty()) {
         // начальный элемент
@@ -53,9 +55,10 @@ void BinaryTree::put(int value, std::vector<int> *vec) {
     }
 }
 
-// удалить листья данного поддерева (не должен быть листом)
+// удалить листья данного поддерева (не должен быть листом) 
 int deleteSheets(Element *element) {
     int deleteCount = 0;
+	// для левого
     Element *elementLeft = element->left;
     if (elementLeft != nullptr) {
         if (elementLeft->left == nullptr && elementLeft->right == nullptr) {
@@ -67,6 +70,7 @@ int deleteSheets(Element *element) {
             deleteCount += deleteSheets(elementLeft);
         }
     }
+	// для правого
     Element *elementRight = element->right;
     if (elementRight != nullptr) {
         if (elementRight->left == nullptr && elementRight->right == nullptr) {
@@ -81,6 +85,7 @@ int deleteSheets(Element *element) {
     return deleteCount;
 }
 
+// удалить все листья (возвращает количество удаленных листьев)
 int BinaryTree::deleteAllSheets() {
     int deleteCount = 0;
     if (header != nullptr) {
@@ -118,7 +123,7 @@ int countEven(Element *element) {
              + countEven(element->left)
              + countEven(element->right);
 }
-
+// количество четных чисел в дереве
 int BinaryTree::countEvenNumbers() {
     int count = 0;
     if (header != nullptr) {
@@ -137,17 +142,19 @@ bool onlyPositive(Element *element) {
     if (element->value < 0) return false;
     return onlyPositive(element->left) && onlyPositive(element->right);
 }
-
+// проверка что в дереве только положительные числа
 bool BinaryTree::onlyPositiveNumbers() {
     return onlyPositive(header);
 }
 
+// структура для подсчета среднего арифметического
 struct ForAverage {
-    ForAverage(Element *parent) : count(1), sum(parent->value) {}
+    ForAverage() : count(0), sum(0) {}
     int count;
     long sum;
 };
 
+// среднее арифметическое всех чисел в поддереве
 void averageCalk(ForAverage *forAverage, Element *element) {
     if (element != nullptr) {
         forAverage->count++;
@@ -156,14 +163,15 @@ void averageCalk(ForAverage *forAverage, Element *element) {
         averageCalk(forAverage, element->right);
     }
 }
-
+// среднее арифметическое всех чисел в дереве
 double BinaryTree::average() {
     if (header == nullptr) return 0;
-    ForAverage *forAverage = new ForAverage(header);
+    ForAverage *forAverage = new ForAverage();
     averageCalk(forAverage, header);
     return forAverage->sum * 1.0 / forAverage->count;
 }
 
+// поиск заданного элемента в поддереве
 std::vector<int> *findValue(int value, std::vector<int> *vector, Element *element) {
     if (element == nullptr) return nullptr;
     if (element->value == value) return vector;
@@ -183,6 +191,7 @@ std::vector<int> *findValue(int value, std::vector<int> *vector, Element *elemen
     return nullptr;
 }
 
+// поиск заданного элемента в дереве
 std::vector<int> *BinaryTree::find(int value) {
     std::vector<int> *vector = new std::vector<int>;
     return findValue(value, vector, header);
@@ -213,6 +222,7 @@ bool isBinarySearchTree(Element *element) {
     return isBinarySearchTree(element->left) && isBinarySearchTree(element->right);
 }
 
+// дерево является деревом двоичного поиска
 bool BinaryTree::binarySearchTree() {
     return isBinarySearchTree(header);
 }
