@@ -53,7 +53,7 @@ void BinaryTree::put(int value, std::vector<int> *vec) {
     }
 }
 
-// удалить листья данного потдерева (не должен быть листом)
+// удалить листья данного поддерева (не должен быть листом)
 int deleteSheets(Element *element) {
     int deleteCount = 0;
     Element *elementLeft = element->left;
@@ -110,7 +110,7 @@ std::ostream &operator<<(std::ostream &os, const BinaryTree &tree) {
     return os;
 }
 
-// количество четных чисел потдерева
+// количество четных чисел поддерева
 int countEven(Element *element) {
     return (element == nullptr)
            ? 0
@@ -123,10 +123,7 @@ int BinaryTree::countEvenNumbers() {
     int count = 0;
     if (header != nullptr) {
         if (header->left == nullptr && header->right == nullptr) {
-            // удаляем начальный элемент
-            delete header;
-            header = nullptr;
-            count = 1;
+            count = (header->value % 2 ? 0 : 1);
         } else {
             count = countEven(header);
         }
@@ -134,7 +131,7 @@ int BinaryTree::countEvenNumbers() {
     return count;
 }
 
-// проверка что в потдереве только положительные числа
+// проверка что в поддереве только положительные числа
 bool onlyPositive(Element *element) {
     if (element == nullptr) return true;
     if (element->value < 0) return false;
@@ -209,7 +206,7 @@ bool checkElementBinarySearchTree(Element *element) {
     return checkElementBinarySearchTree(parent);
 }
 
-// проверка что в потдереве является деревом двоичного поиска
+// проверка что в поддереве является деревом двоичного поиска
 bool isBinarySearchTree(Element *element) {
     if (element == nullptr) return true;
     if (!checkElementBinarySearchTree(element)) return false;
