@@ -198,7 +198,7 @@ std::vector<int> *BinaryTree::find(int value) {
 }
 
 // проверка элемента что его связь с предками удовлетворяет условию двоичного поиска
-bool checkElementBinarySearchTree(Element *element) {
+bool checkElementBinarySearchTree(Element *element, int value) {
     if (element == nullptr) return true;
     Element *parent = element->parent;
     if (parent == nullptr) {
@@ -207,18 +207,18 @@ bool checkElementBinarySearchTree(Element *element) {
     }
     if (element == parent->left) {
         // левый поток
-        if (parent->value < element->value) return false;
+        if (parent->value <=value) return false;
     } else {
         // правый поток
-        if (parent->value > element->value) return false;
+        if (parent->value >=value) return false;
     }
-    return checkElementBinarySearchTree(parent);
+    return checkElementBinarySearchTree(parent, value);
 }
 
 // проверка что в поддереве является деревом двоичного поиска
 bool isBinarySearchTree(Element *element) {
     if (element == nullptr) return true;
-    if (!checkElementBinarySearchTree(element)) return false;
+    if (!checkElementBinarySearchTree(element, element->value)) return false;
     return isBinarySearchTree(element->left) && isBinarySearchTree(element->right);
 }
 

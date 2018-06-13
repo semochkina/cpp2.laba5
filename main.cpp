@@ -59,7 +59,7 @@ int main() {
 
 	std::cout << "\n" << tree2 << "\n";
 
-	std::cout << "binarySearchTree = " << tree2.binarySearchTree() << "\n";
+	std::cout << "binarySearchTree2 = " << tree2.binarySearchTree() << "\n";
 
 	std::cin.get();
 	return 0;
