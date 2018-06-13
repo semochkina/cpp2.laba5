@@ -46,6 +46,21 @@ int main() {
 	outFind(60, &tree);
 	std::cout << "binarySearchTree = " << tree.binarySearchTree() << "\n";
 
+	BinaryTree tree2;
+	tree2.put(50, new std::vector<int>{});
+
+	tree2.put(20, new std::vector<int>{ 0 });
+	tree2.put(10, new std::vector<int>{ 0, 0 });
+	tree2.put(80, new std::vector<int>{ 0, 1 });
+
+	tree2.put(70, new std::vector<int>{ 1 });
+	tree2.put(60, new std::vector<int>{ 1, 0 });
+	tree2.put(100, new std::vector<int>{ 1, 1 });
+
+	std::cout << "\n" << tree2 << "\n";
+
+	std::cout << "binarySearchTree = " << tree2.binarySearchTree() << "\n";
+
 	std::cin.get();
 	return 0;
 }
